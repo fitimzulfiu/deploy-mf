@@ -2,6 +2,7 @@ services:
   # Loki service
   loki:
     image: grafana/loki:latest
+    restart: always
     ports:
       - "3100:3100"  # Exposing the Loki API on port 3100
     command: -config.file=/etc/loki/local-config.yaml  # Use the config file for Loki
@@ -12,6 +13,7 @@ services:
   # Promtail service
   promtail:
     image: grafana/promtail:latest
+    restart: always
     ports:
       - "9080:9080"  # Expose Promtail HTTP port
     environment:
@@ -24,6 +26,7 @@ services:
   # Grafana service
   grafana:
     image: grafana/grafana:latest
+    restart: always
     ports:
       - "3000:3000"  # Expose Grafana UI on port 3000
     environment:
@@ -33,6 +36,7 @@ services:
   # Blazor app service
   blazorapp:
     image: timi74/mf5:latest  # Use the Blazor app image
+    restart: always
     ports:
       - "8080:8080"  # Expose the Blazor app on port 8080
     volumes:
