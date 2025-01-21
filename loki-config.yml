@@ -1,0 +1,46 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9095
+
+ingester:
+  wal:
+    dir: /loki/wal  # Specify the WAL directory
+  lifecycler:
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+  chunk_idle_period: 5m
+  chunk_retain_period: 30s
+
+schema_config:
+  configs:
+    - from: 2025-01-01
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v11  # Keeping schema v11 for compatibility
+      index:
+        prefix: index_
+        period: 24h
+
+storage_config:
+  filesystem:
+    directory: /loki/chunks  # Directory for chunks storage
+
+  boltdb_shipper:
+    active_index_directory: /loki/index  # Set directory for active index
+    cache_location: /loki/cache  # Set cache location for boltdb-shipper
+
+limits_config:
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+  allow_structured_metadata: false  # Disabling structured metadata for now
+
+compactor:
+  working_directory: /loki/compactor  # Set a working directory for the compactor
+
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 168h
