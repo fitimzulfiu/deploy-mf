@@ -43,7 +43,7 @@ docker-compose --version
 5. Run this:
 
 git clone https://fitimzulfiu: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@github.com/fitimzulfiu/deploy-mf.git
-cd your-private-repo (if needed)
+cd your-private-repo (if needed. Examle.: cd deploy-mf)
 docker-compose up -d
 docker ps
 ----------------------
