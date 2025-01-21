@@ -1,0 +1,18 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: ${LOKI_URL:-http://loki:3100/loki/api/v1/push}  # Sending logs to the Loki service in Docker
+
+positions:
+  filename: /tmp/positions.yaml
+
+scrape_configs:
+  - job_name: app-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: app  # You can add more labels as needed
+          __path__: /app/logs/*.log  # Path to log files in the container (from the mounted volume)
