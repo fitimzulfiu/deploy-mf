@@ -1,0 +1,43 @@
+services:
+  # Loki service
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"  # Exposing the Loki API on port 3100
+    command: -config.file=/etc/loki/local-config.yaml  # Use the config file for Loki
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml:ro  # Mount the Loki config file to the container
+      - ./loki-data:/loki  # Mount a local directory to /loki in the container
+
+  # Promtail service
+  promtail:
+    image: grafana/promtail:latest
+    ports:
+      - "9080:9080"  # Expose Promtail HTTP port
+    environment:
+      - LOKI_URL  # Pass the LOKI_URL environment variable
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/promtail-config.yml:ro  # Mount Promtail config
+      - ./logs:/app/logs  # Mount your log files to /logs in the container
+    command: -config.file=/etc/promtail/promtail-config.yml -config.expand-env=true
+
+  # Grafana service
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"  # Expose Grafana UI on port 3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Set the default Grafana admin password
+
+  # Blazor app service
+  blazorapp:
+    image: timi74/mf5:latest  # Use the Blazor app image
+    ports:
+      - "8080:8080"  # Expose the Blazor app on port 8080
+    volumes:
+      - ./logs:/app/logs  # Mount the logs directory
+    depends_on:
+      - loki
+      - promtail
+      - grafana
