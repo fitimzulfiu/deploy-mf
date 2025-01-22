@@ -40,7 +40,8 @@ services:
     ports:
       - "8080:8080"  # Expose the Blazor app on port 8080
     volumes:
-      - ./logs:/app/logs  # Mount the logs directory
+       - ./logs:/app/logs  # Mount the logs directory
+       - ./db:/app/db  # Mount SQLite DB directory to persist data
     depends_on:
       - loki
       - promtail
