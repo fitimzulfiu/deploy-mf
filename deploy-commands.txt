@@ -47,9 +47,8 @@ cd your-private-repo (if needed. Examle.: cd deploy-mf)
 docker-compose up -d
 docker ps
 ----------------------
-6. Automate App Restart on Reboot (Optional)
-
-sudo nano /etc/systemd/system/docker-compose-app.service
+if loki error:
+sudo chown -R 10001:10001 ./loki-data
 ------------------------
 
 Firewall Settings: port open:
