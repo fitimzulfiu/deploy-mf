@@ -51,3 +51,12 @@ docker ps
 
 sudo nano /etc/systemd/system/docker-compose-app.service
 ------------------------
+
+Firewall Settings: port open:
+sudo ufw allow 3000
+
+open port:
+sudo lsof -i :3000
+
+--------------------------
+
