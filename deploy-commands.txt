@@ -51,7 +51,7 @@ if loki error:
 sudo chown -R 10001:10001 ./loki-data
 sudo ufw allow 3100
 sudo ufw reload
-
+loki data source url from grafana: http://ipaddress or domain:3100
 ------------------------
 
 Firewall Settings: port open:
