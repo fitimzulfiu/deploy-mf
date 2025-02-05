@@ -2,7 +2,11 @@
 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
 
 git clone https://yourusername:yourtoken@github.com/yourusername/your-repository.git
-
+------------------------------
+public repo
+git clone https://github.com/fitimzulfiu/deploy-mf.git
+-----------------------------
+private repo
 git clone https://fitimzulfiu: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@github.com/fitimzulfiu/deploy-mf.git
 
 cd your-private-repo
